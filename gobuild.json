@@ -1,0 +1,23 @@
+{
+    "builders": [
+        {
+          "type": "docker",
+          "image": "frolvlad/alpine-glibc",
+          "run_command": ["-d", "-i", "-t", "{{.Image}}", "/bin/sh"],
+          "commit": true
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "provisionit.sh"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "docker-tag",
+            "repository": "rothwerx/gobuild",
+            "tag": "latest"
+        }
+    ]
+}
